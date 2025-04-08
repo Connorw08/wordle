@@ -1,0 +1,27 @@
+{
+    "name": "Wordle",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "test": "vitest"
+    },
+    "devDependencies": {
+        "@types/react": "^19.0.10",
+        "@types/react-dom": "^19.0.3",
+        "@vitejs/plugin-react": "^4.3.4",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "typescript": "~5.6.2",
+        "vite": "^6.0.3",
+        "vitest": "^2.1.8"
+    },
+    "dependencies": {
+        "@tailwindcss/vite": "^4.0.5",
+        "lucide-react": "^0.475.0",
+        "tailwindcss": "^4.0.5"
+    }
+}
