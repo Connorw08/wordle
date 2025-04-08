@@ -17,15 +17,17 @@ export default function App() {
   useEffect(() => {
     const fetchWord = async () => {
       try {
-        const response = await fetch('https://a04-wordle-api.vercel.app/api/random-word');
+        const response = await fetch('https://random-word-api.vercel.app/api?words=1&length=5');
         const data = await response.json();
-        setTargetWord(data.word.toUpperCase());
+        setTargetWord(data[0].toUpperCase());
       } catch (error) {
         console.error('Error fetching word:', error);
+        setTargetWord("WORLD");
       }
     };
     fetchWord();
   }, []);
+
 
   // Add keyboard support for typing letters
   useEffect(() => {
