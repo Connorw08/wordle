@@ -2,7 +2,6 @@
  * Keyboard component for the Wordle game
  */
 
-import React from "react";
 import { TileState } from "./Tile";
 
 type KeyboardProps = {
