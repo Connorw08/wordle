@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import TileRow from "./TileRow";
 import Keyboard from "./Keyboard";
 import GameWon from "./GameWon";
@@ -12,6 +12,15 @@ export default function App() {
   const [activeRow, setActiveRow] = useState<number>(0);
   const [gameWon, setGameWon] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  // Create a ref for the invisible input field
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Focus the invisible input to show the keyboard
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
 
   // Load the target word from the API
   useEffect(() => {
@@ -27,7 +36,6 @@ export default function App() {
     };
     fetchWord();
   }, []);
-
 
   // Add keyboard support for typing letters
   useEffect(() => {
@@ -116,19 +124,31 @@ export default function App() {
   }
 
   return (
-    <div className="w-full h-screen max-h-[-webkit-fill-available] flex flex-col justify-between items-center relative">
+    <div className="w-full min-h-screen flex flex-col justify-between items-center relative px-2 py-4">
+      {/* Hidden input field to trigger keyboard on mobile */}
+      <input
+        ref={inputRef}
+        type="text"
+        className="opacity-0 absolute h-1 w-1"
+        readOnly
+        autoFocus
+      />
+      
       <p className="w-full pl-4 py-2 text-lg font-bold">Wordle</p>
-      <div className="w-full flex flex-col gap-2">
+      
+      <div className="w-full max-w-md flex flex-col gap-2 mt-4" onClick={focusInput}>
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <TileRow
             key={i}
             target={targetWord}
             guess={activeRow === i ? currentGuess : pastGuesses[i]}
             guessed={activeRow > i}
+            onTileClick={focusInput}
           />
         ))}
       </div>
-      <div className="my-12">
+      
+      <div className="mt-auto mb-6 w-full max-w-md">
         <Keyboard
           target={targetWord}
           guesses={pastGuesses}
@@ -137,7 +157,8 @@ export default function App() {
           onBackspace={onBackspace}
         />
       </div>
-      <div className="absolute bottom-2 right-4 text-slate-500 text-sm">
+      
+      <div className="text-slate-500 text-sm text-center w-full">
         Made by Connor Whitlow
       </div>
     </div>

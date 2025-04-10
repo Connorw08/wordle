@@ -1,7 +1,3 @@
-/**
- * Keyboard component for the Wordle game
- */
-
 import { TileState } from "./Tile";
 
 type KeyboardProps = {
@@ -82,7 +78,7 @@ export default function Keyboard({
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-1 md:gap-2 items-center touch-manipulation">
       {rows.map((row, i) => (
         <div key={i} className="flex flex-row gap-1">
           {row.map((key) => {
@@ -91,12 +87,13 @@ export default function Keyboard({
               <button
                 key={key}
                 className={`
-                  ${isSpecialKey ? "px-3" : "px-4"} 
+                  ${isSpecialKey ? "text-xs px-1 md:px-3 md:text-sm" : "px-2 md:px-4"} 
                   py-3 
                   rounded 
                   font-bold 
                   cursor-pointer
                   ${getBackgroundColor(key)}
+                  touch-manipulation
                 `}
                 onClick={() => handleKeyPress(key)}
               >
